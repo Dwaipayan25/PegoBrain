@@ -3,11 +3,15 @@ import abi from "./contracts/research.json";
 import {useState,useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route,Link } from 'react-router-dom';
 import { ethers } from "ethers";
+
 import Navbar from './components/Navbar/Navbar';
 import Hero1 from './components/Hero1/Hero1';
 import Footer from './components/Footer/Footer';
 import NewPublication from './components/Publications/newPublication';
 import PublicationPage from './components/Publications/PublicationPage';
+import Publication01 from './components/Publications/Publication01';
+import Profile from './components/Profile/Profile';
+import Stake from './components/Staking/Stake';
 
 function App() {
   const [state,setState] = useState({
@@ -37,6 +41,7 @@ function App() {
           window.ethereum.on("accountsChanged",()=>{
             window.location.reload();
             connectWallet();
+            window.location.reload();
           })
         
           const provider=new ethers.providers.Web3Provider(window.ethereum);
@@ -68,11 +73,19 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar account={account}/>
-        <Hero1 account={account} state={state} setIdfunc={setIdfunc}/>
-        <NewPublication account={account} state={state} id={id}/>
-        <PublicationPage state={state} setid={setId}/>
-        <Footer />
+      <Navbar state={state} account={account}/>
+      <Routes>
+          <Route path="/" element={<Hero1 />} />
+          <Route path="/publications" element={<PublicationPage state={state} setid={setIdfunc}/>} />
+          <Route path="/profile" element={<Profile state={state} account={account} setid={setIdfunc}/>}/>
+          <Route path="/pub01" element={<Publication01 state={state} id={id}/>} />
+          <Route path="/publish" element={<NewPublication state={state}/>} />
+          <Route path="/stake" element={<Stake state={state}/>} />
+
+          
+        </Routes>
+
+        {/* <Footer /> */}
       </Router>
     </div>
   );

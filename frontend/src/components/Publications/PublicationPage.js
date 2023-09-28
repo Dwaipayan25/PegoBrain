@@ -88,15 +88,18 @@ const PublicationPage = ({ state, setid }) => {
             <div className="card">
               <div className="card-content">
                 <div className="card-info">
-                  <h3 className="card-title">{publication.title}</h3>
-                  <p className="card-description">{publication.description}</p>
-                  <p className="card-owner">{shortenAddress(publication.researcher)}</p>
+                  <h3 className="card-title">Title: {publication.title}</h3>
+                  <p className="card-description">Description: {publication.description}</p>
+                  <p className="card-owner">Owner: {shortenAddress(publication.researcher)}</p>
+                  <p className="Score">Reputation: {ethers.utils.formatUnits(publication.score, 0)}</p>
                 </div>
                 <div className="card-actions">
                   <Link to="/pub01">
                     <button className="card-button" onClick={()=>{setid(changeToInt(publication.id))}}>View More</button>
                   </Link>
-                  <button className="card-button">Contribute</button>
+                  <Link to="/pub01">
+                    <button className="card-button" onClick={()=>{setid(changeToInt(publication.id))}}>Contribute</button>
+                  </Link>
                 </div>
               </div>
             </div>

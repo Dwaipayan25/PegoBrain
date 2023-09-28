@@ -1,5 +1,6 @@
 import React from 'react';
 import DataSection from "./DataSection";
+import Footer from '../Footer/Footer';
 import './Hero1.css';
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const Hero = () => {
       </div>
     </div>
     <DataSection />
+    <Footer />
     </div>
   );
 };

@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    color: rgb(255, 255, 255);
   }
   
   .top-section {
@@ -39,4 +40,60 @@
   .other-files p:not(:last-child) {
     margin-bottom: 10px;
   }
+
+  /* ... (existing styles) */
+
+.add-review-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
+.add-review-section textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.add-review-section label {
+    margin-right: 10px;
+}
+
+.add-review-section button {
+    padding: 8px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-review-section button:hover {
+    background-color: #45a049;
+}
+
+.reviews-section {
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
   

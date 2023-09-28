@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card';
-import MessageCard from './MessageCard';
+// import Card from './Card';
+import MessageCard from '../Requirements/MessageCard';
 import './Profile.css';
 import { ethers } from "ethers";
 import { Link } from "react-router-dom";
@@ -107,12 +107,13 @@ const Profile = ({state,account,setid}) => {
 
   return (
     <div className="profile">
-      <h1 className="account-number">{account}</h1>
-      <div className="profile-info">
-        <div className="publication-info">
+      <h1 className="account-number">Account: {account}</h1>
+      <div className="publication-info">
           {/* <p>Number of Publications: {publications.length}</p> */}
-          <p>Number of Publications: {publications.length}</p>
+          <h3>Number of Publications: {publications.length}</h3>
         </div>
+      <div className="profile-info">
+        
         <div className="publication-list">
         {publications.map((publication, index) => (
           <>
@@ -154,10 +155,10 @@ const Profile = ({state,account,setid}) => {
           <button onClick={addContributor}>Add</button>
         </div>
       </div>
-      <div className="distribute-funds">
+      {/* <div className="distribute-funds">
         <h2>Distribute Funds:</h2>
         <button onClick={distributeFunds}>Distribute</button>
-      </div>
+      </div> */}
       <div className="messages">
           <h2>Messages:</h2>
           <ul>
@@ -175,7 +176,7 @@ const Profile = ({state,account,setid}) => {
         ))}
           </ul>
         </div>
-        <button onClick={()=>getPublicationsByAddress(account)}>Test</button>
+        {/* <button onClick={()=>getPublicationsByAddress(account)}>Test</button> */}
     </div>
   );
 };

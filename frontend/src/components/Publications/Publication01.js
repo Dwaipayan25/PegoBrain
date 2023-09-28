@@ -2,8 +2,8 @@ import React from 'react'
 import { ethers } from "ethers";
 import { useState,useEffect,useReducer } from "react";
 import './Publication01.css'; // CSS file for styling
-import PubCard from "./PubCard";
-import UpdateCard from "./UpdateCard";
+import PubCard from "../Requirements/PubCard";
+import UpdateCard from "../Requirements/UpdateCard";
 import { Web3Storage } from 'web3.storage';
 
 export const shortenAddress = (address) => {
@@ -30,6 +30,9 @@ const PublicationPage = ({state,id}) => {
     const [totalContributions, setTotalContributions]=useState(0);
     const [eth, setEth] = useState(0);
     const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDM2QTg4NWFFNjRBRGVhZjRBQmY1NTljMDM0RTk1MjA0YWYyNjBFQjIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODQ2OTg4ODg0MzgsIm5hbWUiOiJEQVJPMDEifQ.vTYgJRu6tOkKF-jIBPN1kWCzJ5h4ESesqLV_wmOATEc";
+    const [reviewFeedback, setReviewFeedback] = useState('');
+    const [reviewScore, setReviewScore] = useState(0);
+    const [reviews, setReviews] = useState([]);
 
     const handleDescriptionChange = (e) => {
         setDescription(e.target.value);
@@ -50,14 +53,16 @@ const PublicationPage = ({state,id}) => {
         const getPublication=async()=>{
             // e.preventDefault();
             const {contract}=state;
-            const publication=await contract.getPublicationById(id);
-            setPublication(publication);
-            console.log(publication);
-            const updates=await contract.getUserUpdates(id);
-            setUpdates(updates);
-            console.log(updates);
-            const totalContributions=ethers.utils.formatEther(publication.totalContributions)*(10**18);
-            setTotalContributions(totalContributions);
+            if(contract){
+                const publication=await contract.getPublicationById(id);
+                setPublication(publication);
+                console.log(publication);
+                const updates=await contract.getUserUpdates(id);
+                setUpdates(updates);
+                console.log(updates);
+                const totalContributions=ethers.utils.formatEther(publication.totalContributions)*(10**18);
+                setTotalContributions(totalContributions);
+            }
         }
         contract && getPublication();
     },[contract]);
@@ -108,6 +113,35 @@ const PublicationPage = ({state,id}) => {
         alert("Updated");
         setfiles(null);
     }
+
+    const handleReviewFeedbackChange = (e) => {
+        setReviewFeedback(e.target.value);
+    };
+
+    const handleReviewScoreChange = (e) => {
+        setReviewScore(e.target.value);
+    };
+
+    const addReview = async () => {
+        try {
+            const review = contract.addReview(id, reviewFeedback, reviewScore);
+            await review.wait();
+            alert("Review added successfully!");
+        } catch (error) {
+            console.error("Error adding review:", error);
+        }
+    };
+
+    useEffect(() => {
+        // wait(1000);
+        const fetchReviews = async () => {
+            if(contract){
+                const reviewsForPublication = await contract.getReview(id);
+                setReviews(reviewsForPublication);
+            }
+        };
+        fetchReviews();
+    }, [contract]);
     
 
 
@@ -147,15 +181,14 @@ const PublicationPage = ({state,id}) => {
           <h2>Distribute Funds</h2>
           <h3>Total Contributions: {totalContributions}</h3>
           <p>Only Owner can distribute funds.</p>
-          <p>Owner:70% , Rest Contributor:30%</p>
+          <p>Owner:60% , Contributors:30%, Reviewers: 10%</p>
           <button onClick={DistributePublication}>Distribute</button>
         </div>
 
         <div className="allow-access">
           <h2>Fund Publication</h2>
           <label htmlFor='input'>How much to contribute ?</label>
-          <p>(Crosschain Funding possible by AXELAR)</p>
-          <p>Enter Funding value in (tFIL)</p>
+          <p>Enter Funding value in (PG)</p>
           <input
           type="number"
           step="0.01"
@@ -188,6 +221,35 @@ const PublicationPage = ({state,id}) => {
           </ul>
         </div>
       </div>
+      <div className="add-review-section">
+            <h3>Add Review</h3>
+            <textarea
+                value={reviewFeedback}
+                onChange={handleReviewFeedbackChange}
+                placeholder="Your feedback here..."
+            />
+            <label>
+                Score out of 10: 
+                <input 
+                    type="number" 
+                    min="0" 
+                    max="10" 
+                    value={reviewScore} 
+                    onChange={handleReviewScoreChange} 
+                />
+            </label>
+            <button onClick={addReview}>Add Review</button>
+        </div>
+        <div className="reviews-section">
+            <h3>Reviews</h3>
+            {reviews.map((review, index) => (
+                <div key={index} className="review-card">
+                    <p><strong>Reviewer:</strong> {shortenAddress(review.reviewer)}</p>
+                    <p><strong>Feedback:</strong> {review.feedback}</p>
+                    <p><strong>Score:</strong> {ethers.utils.formatUnits(review.score, 0)}/10</p>
+                </div>
+            ))}
+        </div>
     </div>
   );
 };
