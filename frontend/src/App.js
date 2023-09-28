@@ -71,7 +71,7 @@ function App() {
         <Navbar account={account}/>
         <Hero1 account={account} state={state} setIdfunc={setIdfunc}/>
         <NewPublication account={account} state={state} id={id}/>
-        <PublicationPage state={state} setid={setIdfunc}/>
+        <PublicationPage state={state} setid={setId}/>
         <Footer />
       </Router>
     </div>
