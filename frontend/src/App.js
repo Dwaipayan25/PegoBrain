@@ -26,6 +26,7 @@ function App() {
   useEffect(()=>{
     const connectWallet=async()=>{
       // const contractAddress = "0x80AbB598f94Bf9546B2DCC784b79744A4B792343";//aactual testnet
+      // const contractAddress = "0x2041E5aE57f07fC11C8a868AD390630AE1971575";
       const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
       // const contractAddress = "0x1E066480866E5588a38d7749d17D098A187B2f1b";
       const contractABI=abi.abi;
@@ -81,8 +82,6 @@ function App() {
           <Route path="/pub01" element={<Publication01 state={state} id={id}/>} />
           <Route path="/publish" element={<NewPublication state={state}/>} />
           <Route path="/stake" element={<Stake state={state}/>} />
-
-          
         </Routes>
 
         {/* <Footer /> */}

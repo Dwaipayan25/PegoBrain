@@ -220,7 +220,7 @@ contract research{
     event Unstaked(address indexed staker, uint256 amount);
 
     function stake() external payable {
-        require(msg.value == 1 ether, "You can only stake exactly 1 ETH");
+        require(msg.value == 0.25 ether, "You can only stake exactly 0.25 ETH");
         require(stakes[msg.sender] == 0, "You have already staked");
 
         stakes[msg.sender] = msg.value;
@@ -229,7 +229,7 @@ contract research{
     }
 
     function unstake() external {
-        require(stakes[msg.sender] == 1 ether, "You haven't staked 1 ETH or have already unstaked");
+        require(stakes[msg.sender] == 0.25 ether, "You haven't staked 0.25 ETH or have already unstaked");
 
         uint256 amountToUnstake = stakes[msg.sender];
         stakes[msg.sender] = 0; // Reset the staked amount for the user

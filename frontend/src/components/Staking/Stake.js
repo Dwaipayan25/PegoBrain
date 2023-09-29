@@ -8,9 +8,9 @@ function StakeComponent({ state }) {
     const handleStake = async () => {
         try {
             setStatus("Sending transaction...");
-            const tx = await state.contract.stake({ value: ethers.utils.parseEther("1.0") });
+            const tx = await state.contract.stake({ value: ethers.utils.parseEther("0.25") });
             await tx.wait();
-            setStatus("Staked 1 ETH successfully!");
+            setStatus("Staked 0.25 PG successfully!");
         } catch (error) {
             setStatus(`Error: ${error.message}`);
         }
@@ -21,7 +21,7 @@ function StakeComponent({ state }) {
             setStatus("Sending transaction...");
             const tx = await state.contract.unstake();
             await tx.wait();
-            setStatus("Unstaked 1 ETH successfully!");
+            setStatus("Unstaked 0.25 PG successfully!");
         } catch (error) {
             setStatus(`Error: ${error.message}`);
         }
@@ -30,7 +30,7 @@ function StakeComponent({ state }) {
     return (
         <div className='stake'>
         <div className="stake-container">
-            <button onClick={handleStake}>Stake 1 ETH</button>
+            <button onClick={handleStake}>Stake 0.25 PG</button>
             <button onClick={handleUnstake}>Unstake</button>
             <div className="status">{status}</div>
         </div>

@@ -64,13 +64,15 @@ const Form = ({state}) => {
         alert("Successfully uploaded image");
     }
     console.log(hash);
-    const tx=await contract.addPublication(title,description,hash);
-    await tx.wait();
-    console.log("Publication Created");
-    alert("Publication created");
-    setTitle('');
-    setDescription('');
-    setfiles(null);
+    if(contract){
+      const tx=await contract.addPublication(title,description,hash);
+      await tx.wait();
+      console.log("Publication Created");
+      alert("Publication created");
+      setTitle('');
+      setDescription('');
+      setfiles(null);
+    }
   }
 
   function showLink(url) {
