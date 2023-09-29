@@ -9,8 +9,9 @@
 3. **Tech-Driven Excellence**: Built using cutting-edge tools like Solidity, Hardhat, React, and Ethers.js, PegoBrain seamlessly blends blockchain transparency with the uniqueness of NFTs. The platform promises a brighter, more inclusive future for research, where every idea has the potential to resonate globally.
 
 ## Model:
+<img width="1590" alt="Screenshot 2023-09-29 at 2 30 56 PM" src="https://github.com/Dwaipayan25/PegoBrain/assets/91361409/9235ff4f-2cf6-4512-aaca-a2e887352a20">
 
-![Screenshot 2023-09-29 at 2.30.56 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/5a94d478-012c-4d6c-b7ae-a1fd2bad32b8/034dd38b-c9f0-4433-aea9-1dc2a96dd7e5/Screenshot_2023-09-29_at_2.30.56_PM.png)
+
 
 ## Here are the keypoints highlighting what PegoBrain does:
 
